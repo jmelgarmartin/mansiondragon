@@ -63,6 +63,10 @@ typings/
 .env.*
 !.env.example
 
+client/.env
+client/.env.*
+!client/.env.example
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
