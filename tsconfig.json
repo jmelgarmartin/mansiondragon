@@ -16,8 +16,12 @@
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"]
+      "~/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./*"
+      ]
     },
     "types": [
       "@nuxt/types",
@@ -31,7 +35,6 @@
     "node_modules",
     ".nuxt",
     ".nest",
-    "server",
-    "dist"
+    "server"
   ]
 }
