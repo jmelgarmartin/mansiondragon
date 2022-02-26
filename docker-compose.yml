@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: lamansionroot
+      MYSQL_DATABASE: lamansiondeldragon
+      MYSQL_USER: lamansion
+      MYSQL_PASSWORD: lamansion
+
+  server:
+    depends_on:
+      - db
+    server:
+    image: node:lts
+    command: yarn docker
+    volumes:
+      - ./server:/usr/src/app
+    working_dir: /usr/src/app
+    ports:
+      - "4000:4000"
+    restart: always
+
+  client:
+    image: node:lts
+    command: yarn docker
+    volumes:
+      - ./client:/usr/src/app
+    working_dir: /usr/src/app
+    ports:
+      - "3000:3000"
+
+volumes:
+  db_data:
