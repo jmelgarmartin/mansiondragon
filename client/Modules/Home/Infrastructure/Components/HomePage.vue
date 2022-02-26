@@ -1,13 +1,13 @@
 <template>
-  <div>Hello there!</div>
+  <div>Hello theree! perro</div>
 </template>
 
 <script lang="ts">
-  import Vue from "vue";
+import Vue from 'vue'
 
-  export default Vue.extend({
-    name: "HomePage",
-  })
+export default Vue.extend({
+  name: 'HomePage',
+})
 </script>
 
 <style lang="scss" scoped>

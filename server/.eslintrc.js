@@ -1,23 +1,22 @@
 const SEVERITY_ERROR = 2
 
 module.exports = {
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: 'tsconfig.json',
+    sourceType: 'module',
+  },
+  plugins: ['@typescript-eslint/eslint-plugin'],
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
   root: true,
   env: {
-    browser: true,
     node: true,
+    jest: true,
   },
-  extends: [
-    '@nuxtjs/eslint-config-typescript',
-    'plugin:nuxt/recommended',
-    'prettier',
-  ],
-  settings: {
-    'import/ignore': [
-      'node_modules',
-    ],
-  },
-  plugins: [],
-  // add your custom rules here
+  ignorePatterns: ['.eslintrc.js'],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -33,19 +32,6 @@ module.exports = {
 
       { blankLine: 'always', prev: '*', next: 'return' },
     ],
-    'comma-dangle': [
-      SEVERITY_ERROR,
-      {
-        arrays: 'always-multiline',
-        objects: 'always-multiline',
-      },
-    ],
-    'max-len': [
-      SEVERITY_ERROR,
-      {
-        code: 120,
-      },
-    ],
     '@typescript-eslint/consistent-type-definitions': [
       SEVERITY_ERROR,
       'interface',
@@ -56,9 +42,6 @@ module.exports = {
         selector: 'typeLike',
         format: ['PascalCase'],
       },
-    ],
-    'vue/require-name-property': [
-      SEVERITY_ERROR,
     ],
     '@typescript-eslint/explicit-member-accessibility': [
       SEVERITY_ERROR,
@@ -79,4 +62,4 @@ module.exports = {
     'no-useless-constructor': 'off',
     '@typescript-eslint/no-useless-constructor': [SEVERITY_ERROR],
   },
-}
+};

@@ -1,0 +1,53 @@
+version: '3.4'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    container_name: lamansion-db
+    ports:
+      - "33060:3306"
+    environment:
+      MYSQL_DATABASE: lamansiondeldragon
+      MYSQL_USER: lamansion
+      MYSQL_PASSWORD: lamansion
+      MYSQL_ROOT_PASSWORD: lamansionroot
+    networks:
+      - default
+
+  server:
+    depends_on:
+      - db
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: lamansion-server
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    ports:
+      - "4000:4000"
+    restart: always
+    networks:
+      - default
+
+  client:
+    depends_on:
+      - server
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: lamansion-client
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    networks:
+      - default
+volumes:
+  db_data:
+networks:
+  default:
