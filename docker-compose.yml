@@ -7,15 +7,14 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: lamansionroot
       MYSQL_DATABASE: lamansiondeldragon
       MYSQL_USER: lamansion
       MYSQL_PASSWORD: lamansion
+      MYSQL_ROOT_PASSWORD: lamansionroot
 
   server:
     depends_on:
       - db
-    server:
     image: node:lts
     command: yarn docker
     volumes:
@@ -26,6 +25,8 @@ services:
     restart: always
 
   client:
+    depends_on:
+      - server
     image: node:lts
     command: yarn docker
     volumes:
