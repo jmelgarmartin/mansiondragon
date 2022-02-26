@@ -1,7 +1,7 @@
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
-  srcDir: 'client/',
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'lamansiondeldragon',
@@ -18,7 +18,8 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -37,7 +38,7 @@ export default {
     [
       '@nuxtjs/router',
       {
-        path: './client/Modules/Router/Infrastructure',
+        path: './Modules/Router/Infrastructure',
         fileName: 'CreateRouter.ts',
         keepDefaultRouter: false,
         parsePages: false,
@@ -57,6 +58,11 @@ export default {
     'cookie-universal-nuxt',
   ],
 
+  // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  axios: {
+    baseURL: '/',
+  },
+
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
@@ -64,12 +70,10 @@ export default {
     },
   },
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {
+  // Build Configuration: https://go.nuxtjs.dev/config-build
+  build: {
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
   env: {
     baseUrl: process.env.API_URL,
   },
