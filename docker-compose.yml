@@ -20,7 +20,9 @@ services:
     image: node:lts
     command: yarn docker
     volumes:
-      - ./server:/usr/src/app
+      - type: bind
+        source: ./server
+        target: /usr/src/app
     working_dir: /usr/src/app
     ports:
       - "4000:4000"
@@ -32,7 +34,9 @@ services:
     image: node:lts
     command: yarn docker
     volumes:
-      - ./client:/usr/src/app
+      - type: bind
+        source: ./client
+        target: /usr/src/app
     working_dir: /usr/src/app
     ports:
       - "3000:3000"
