@@ -23,8 +23,8 @@
       <button
         class="sidebar__close-button"
         :class="{
-            'sidebar__close-button--hidden': !showInMobileResolution
-          }"
+          'sidebar__close-button--hidden': !showInMobileResolution
+        }"
 
         aria-label="Close sidebar"
         @click="toggleMenu"
@@ -35,29 +35,17 @@
       </button>
     </div>
 
-    <div class="sidebar__menu">
-      <div class="sidebar__brand-image-wrapper">
-        <img
-          class="sidebar__brand-image"
-          src="/img/brand/icon.png"
-          alt="Icono La Mansión del Dragón"
-        >
-      </div>
-
-      <span
-        class="sidebar__menu-body"
-      >
-        Home
-      </span>
-    </div>
+    <common-menu />
   </div>
 </template>
 
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
+import CommonMenu from '~/Modules/Shared/Infrastructure/Components/Layout/CommonMenu.vue'
 
 export default Vue.extend({
   name: 'SidebarLayout',
+  components: { CommonMenu },
   props: {
     showInMobileResolution: {
       type: Boolean,
