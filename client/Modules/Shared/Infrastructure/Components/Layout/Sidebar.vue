@@ -18,27 +18,24 @@
     </div>
 
     <div
-      class="sidebar__menu"
-      :class="{
-        'sidebar__menu--hidden': !showInMobileResolution
-      }"
+      class="sidebar__close-button-wrapper"
     >
-      <div class="sidebar__close-button-wrapper">
-        <button
-          class="sidebar__close-button"
-          :class="{
+      <button
+        class="sidebar__close-button"
+        :class="{
             'sidebar__close-button--hidden': !showInMobileResolution
           }"
 
-          aria-label="Close sidebar"
-          @click="toggleMenu"
-        >
-          <svg class="sidebar__close-button__icon" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
+        aria-label="Close sidebar"
+        @click="toggleMenu"
+      >
+        <svg class="sidebar__close-button__icon" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
 
+    <div class="sidebar__menu">
       <div class="sidebar__brand-image-wrapper">
         <img
           class="sidebar__brand-image"
@@ -108,7 +105,7 @@ export default Vue.extend({
   }
 
   &__close-button-wrapper {
-    @apply absolute top-0 right-12 -mr-16 p-2;
+    @apply absolute top-0 right-0 -mr-0 p-2 z-10;
   }
 
   &__close-button {
