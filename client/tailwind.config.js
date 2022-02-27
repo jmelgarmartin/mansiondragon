@@ -38,14 +38,7 @@ module.exports = {
       },
     },
     colors: {
-      brand: {
-        400: '#ffdf49',
-        500: '#ffcd00',
-        600: '#f5b900', // ~brand/yellow
-        700: '#ffa000',
-        over: '#FFFFFF',
-        highlight: '#FFBE00',
-      },
+      brand: {},
       base: {
         25: '#ffffff',
         50: '#fcfcfc',
