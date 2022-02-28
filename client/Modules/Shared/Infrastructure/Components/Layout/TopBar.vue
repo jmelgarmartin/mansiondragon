@@ -53,7 +53,7 @@ export default Vue.extend({
     @apply hidden;
 
     @screen md {
-      @apply visible;
+      @apply flex;
     }
   }
 }
