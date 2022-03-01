@@ -9,14 +9,18 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
       </svg>
     </button>
+
+    <common-menu class="top-bar__menu" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import CommonMenu from '~/Modules/Shared/Infrastructure/Components/Layout/CommonMenu.vue'
 
 export default Vue.extend({
   name: 'TopBar',
+  components: { CommonMenu },
   methods: {
     toggleMenu () {
       this.$emit('on-toggle-menu')
@@ -42,6 +46,14 @@ export default Vue.extend({
 
     &:focus {
       @apply outline-none bg-base-100 text-base-500;
+    }
+  }
+
+  &__menu {
+    @apply hidden;
+
+    @screen md {
+      @apply flex;
     }
   }
 }
