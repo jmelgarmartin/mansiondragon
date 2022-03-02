@@ -14,12 +14,14 @@
       class="common__menu-body"
     >
       <div class="common__menu-body-links">
-        <nuxt-link :to="homeRoute"> Home </nuxt-link>
-        <nuxt-link :to="homeRoute"> Home </nuxt-link>
-        <nuxt-link :to="homeRoute"> Home </nuxt-link>
+        <nuxt-link :to="homeRoute">
+          Home
+        </nuxt-link>
       </div>
       <div>
-        <nuxt-link class="common__login" :to="homeRoute"> Acceder </nuxt-link>
+        <nuxt-link class="common__login" :to="authRoute">
+          Acceder
+        </nuxt-link>
       </div>
     </div>
   </div>
@@ -33,6 +35,9 @@ export default Vue.extend({
   computed: {
     homeRoute (): string {
       return '/'
+    },
+    authRoute (): string {
+      return '/auth'
     },
   },
 })
