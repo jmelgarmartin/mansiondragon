@@ -43,9 +43,6 @@ module.exports = {
         format: ['PascalCase'],
       },
     ],
-    '@typescript-eslint/explicit-member-accessibility': [
-      SEVERITY_ERROR,
-    ],
     '@typescript-eslint/member-delimiter-style': [
       SEVERITY_ERROR,
       {

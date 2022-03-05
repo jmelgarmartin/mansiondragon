@@ -19,9 +19,7 @@
         </nuxt-link>
       </div>
       <div>
-        <nuxt-link class="common__login" :to="authRoute">
-          Acceder
-        </nuxt-link>
+        <auth-access-button />
       </div>
     </div>
   </div>
@@ -29,9 +27,11 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import AuthAccessButton from '~/Modules/Auth/Infrastructure/Components/AuthAccessButton.vue'
 
 export default Vue.extend({
   name: 'CommonMenu',
+  components: { AuthAccessButton },
   computed: {
     homeRoute (): string {
       return '/'

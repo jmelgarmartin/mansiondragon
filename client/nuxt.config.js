@@ -59,7 +59,26 @@ export default {
     '@nuxtjs/dotenv',
     // https://github.com/microcipcip/cookie-universal/tree/master/packages/cookie-universal-nuxt#readme
     'cookie-universal-nuxt',
+    '@nuxtjs/auth-next',
   ],
+
+  auth: {
+    strategies: {
+      discord: {
+        clientId: process.env.DISCORD_CLIENT_ID,
+        clientSecret: process.env.DISCORD_CLIENT_SECRET,
+        scope: ['identify'],
+        response_type: 'token',
+        redirect_uri: 'http://localhost:3000/login',
+      },
+    },
+    redirect: {
+      login: '/login',
+      callback: '/login',
+      home: '/login',
+    },
+    rewriteRedirects: true,
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
@@ -77,5 +96,6 @@ export default {
 
   env: {
     baseUrl: process.env.API_URL,
+    discordUrl: process.env.DISCORD_AUTH_URL,
   },
 }

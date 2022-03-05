@@ -3,7 +3,7 @@ import AuthPage from '~/Modules/Auth/Infrastructure/Components/AuthPage.vue'
 
 export const AuthRoutes: RouteConfig[] = [
   {
-    path: '/auth',
+    path: '/login',
     component: AuthPage,
   },
 ]
