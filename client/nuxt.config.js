@@ -25,6 +25,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: './Modules/Shared/Infrastructure/Axios/Bindings' },
     { src: './Modules/Auth/Infrastructure/Bindings' },
     { src: './Modules/Home/Infrastructure/Bindings' },
   ],
@@ -47,6 +48,8 @@ export default {
         parsePages: false,
       },
     ],
+    // https://typed-vuex.roe.dev/
+    'nuxt-typed-vuex',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -95,7 +98,8 @@ export default {
   },
 
   env: {
-    baseUrl: process.env.API_URL,
-    discordUrl: process.env.DISCORD_AUTH_URL,
+    lamansion: {
+      apiUrl: process.env.API_URL,
+    },
   },
 }
