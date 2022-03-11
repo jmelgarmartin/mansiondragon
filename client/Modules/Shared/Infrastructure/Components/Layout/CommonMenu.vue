@@ -4,7 +4,7 @@
       <nuxt-link :to="homeRoute">
         <img
           class="common__brand-image"
-          src="/img/brand/icon.png"
+          src="/img/brand/logo.png"
           alt="Icono La Mansión del Dragón"
         >
       </nuxt-link>
@@ -59,7 +59,7 @@ export default Vue.extend({
   }
 
   &__brand-image {
-    @apply h-6 w-auto;
+    @apply h-10 w-auto;
   }
 
   &__menu-body {
