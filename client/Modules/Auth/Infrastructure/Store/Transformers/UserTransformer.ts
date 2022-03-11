@@ -6,6 +6,9 @@ export class UserTransformer {
     return {
       id: user.id,
       name: user.name,
+      admin: user.isAdmin,
+      master: user.isMaster,
+      player: user.isPlayer,
     }
   }
 
