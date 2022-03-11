@@ -4,6 +4,7 @@ import { AuthService } from '~/Modules/Auth/Infrastructure/Services/AuthService'
 import { WrapperApiResponse } from '~/Modules/Shared/Infrastructure/DTOs/WrapperApiResponse'
 import { FetchUserApiResponse } from '~/Modules/Auth/Infrastructure/DTOs/FetchUserApiResponse'
 import mocked = jest.mocked;
+import {User} from "~/Modules/Auth/Domain/Models/User";
 
 describe('client/Modules/Auth/Infrastructure/Services/AuthService.ts', () => {
   let lamansionApi: AxiosInstance
@@ -43,6 +44,20 @@ describe('client/Modules/Auth/Infrastructure/Services/AuthService.ts', () => {
       await authService.fetchUser('discord-user-id')
 
       expect(lamansionApi.get).toHaveBeenCalledWith('auth/user/discord-user-id')
+    })
+
+    it('should properly map the response', async () => {
+      const user = await authService.fetchUser('discord-user-id')
+
+      expect(user).toEqual(
+        User.make({
+          id: 'a-user-id',
+          name: 'a-user-name',
+          admin: true,
+          master: false,
+          player: true,
+        })
+      )
     })
   })
 })

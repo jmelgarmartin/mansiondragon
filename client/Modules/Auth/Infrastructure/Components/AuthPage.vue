@@ -31,6 +31,8 @@ export default Vue.extend({
   async created () {
     this.loading = true
     await this.$auth.fetchUser()
+    this.$accessor.auth.fetchUser(this.$auth.user.id)
+
     this.loading = false
   },
 })
