@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { getAccessorType } from 'typed-vuex'
+import auth from '~/store/auth'
 
 Vue.use(Vuex)
 
@@ -28,12 +29,14 @@ declare module '@nuxt/types' {
 export const accessorType = getAccessorType({
   modules: {
     // NOTE: Añade tus módulos aquí
+    auth,
   },
 })
 
 const mutationAccessorType = getAccessorType({
   modules: {
     // NOTE: Añade tus mutaciones aquí
+    auth: { mutations: auth.mutations },
   },
 })
 // ⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆
@@ -42,7 +45,7 @@ type AccessorToPointer<T> = { [K in keyof T]-?:
   T[K] extends (...args: infer P) => any ? { mutation: K, payload: P } :
     AccessorToPointer<T[K]> extends infer X ? (
       X extends { mutation: infer M, payload: infer P } ? (
-        { mutation: `${Extract<K, string>}/${Extract<M, string>}`; payload: P }
+        { mutation: `${Extract<K, string>}/${Extract<M, string>}`, payload: P }
         ) : never
       ) : never
 }[keyof T]
