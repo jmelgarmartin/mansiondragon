@@ -8,8 +8,21 @@ export class AuthService implements AuthServiceInterface {
   public constructor (private lamansionApi: AxiosInstance) {}
 
   public async fetchUser (userId: UserId): Promise<User> {
-    const endpoint = `auth/user/${userId}`
+    const endpoint = `auth/discord/user/${userId}`
     const response = await this.lamansionApi.get<WrapperApiResponse<FetchUserApiResponse>>(endpoint)
+
+    return AuthService.fetchUserFromResponse(response.data.data)
+  }
+
+  public async registerUser (userId: UserId, userName: string): Promise<User> {
+    const endpoint = 'auth/user'
+    const response = await this.lamansionApi.post<WrapperApiResponse<FetchUserApiResponse>>(endpoint, {
+      type: 'user',
+      attributes: {
+        name: userName,
+        discord_id: userId,
+      },
+    })
 
     return AuthService.fetchUserFromResponse(response.data.data)
   }

@@ -12,6 +12,7 @@ describe('client/Modules/Auth/Infrastructure/Services/AuthService.ts', () => {
   beforeEach(() => {
     lamansionApi = {
       get: jest.fn().mockRejectedValue(new Error('unexpected call to axios.get')),
+      post: jest.fn().mockRejectedValue(new Error('unexpected call to axios post')),
     } as unknown as AxiosInstance
   })
 
@@ -44,7 +45,7 @@ describe('client/Modules/Auth/Infrastructure/Services/AuthService.ts', () => {
       it('should call the endpoint url correctly', async () => {
         await authService.fetchUser('discord-user-id')
 
-        expect(lamansionApi.get).toHaveBeenCalledWith('auth/user/discord-user-id')
+        expect(lamansionApi.get).toHaveBeenCalledWith('auth/discord/user/discord-user-id')
       })
 
       it('should properly map the response', async () => {
@@ -78,7 +79,7 @@ describe('client/Modules/Auth/Infrastructure/Services/AuthService.ts', () => {
       it('should call the endpoint url correctly', async () => {
         await authService.fetchUser('discord-user-id')
 
-        expect(lamansionApi.get).toHaveBeenCalledWith('auth/user/discord-user-id')
+        expect(lamansionApi.get).toHaveBeenCalledWith('auth/discord/user/discord-user-id')
       })
 
       it('should properly map the response', async () => {
@@ -91,6 +92,63 @@ describe('client/Modules/Auth/Infrastructure/Services/AuthService.ts', () => {
             admin: false,
             master: false,
             player: false,
+          })
+        )
+      })
+    })
+  })
+
+  describe('fetchUser', () => {
+    let authService: AuthServiceInterface
+
+    describe('when success', () => {
+      beforeEach(() => {
+        authService = new AuthService(lamansionApi)
+
+        const registerUser: WrapperApiResponse<FetchUserApiResponse> = {
+          data: [{
+            id: 'a-user-id',
+            type: 'user',
+            attributes: {
+              username: 'a-user-name',
+              admin: true,
+              image: 'a-user-image',
+              master: false,
+              player: true,
+            },
+          }],
+        }
+
+        mocked(lamansionApi.post).mockResolvedValue({
+          data: registerUser,
+        })
+      })
+
+      it('should call the endpoint url correctly', async () => {
+        await authService.registerUser('discord-user-id', 'a-user-name')
+
+        expect(lamansionApi.post).toHaveBeenCalledWith(
+          'auth/user',
+          {
+            type: 'user',
+            attributes: {
+              discord_id: 'discord-user-id',
+              name: 'a-user-name',
+            },
+          }
+        )
+      })
+
+      it('should properly map the response', async () => {
+        const user = await authService.registerUser('discord-user-id', 'a-user-name')
+
+        expect(user).toEqual(
+          User.make({
+            id: 'a-user-id',
+            name: 'a-user-name',
+            admin: true,
+            master: false,
+            player: true,
           })
         )
       })
