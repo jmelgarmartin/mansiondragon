@@ -13,4 +13,13 @@ export const Actions = actionTree({ state: State, getters: Getters, mutations: M
 
     commit('setLoadingStatus', 'successful')
   },
+
+  async registerUser ({ commit }, { userId, name }: {userId: UserId, name: string}) {
+    commit('setLoadingStatus', 'loading')
+    const user = await this.$authService.registerUser(userId, name)
+
+    commit('storeUser', user)
+
+    commit('setLoadingStatus', 'successful')
+  },
 })
