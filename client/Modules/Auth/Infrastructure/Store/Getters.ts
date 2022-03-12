@@ -4,8 +4,11 @@ import { User } from '~/Modules/Auth/Domain/Models/User'
 import { UserTransformer } from '~/Modules/Auth/Infrastructure/Store/Transformers/UserTransformer'
 
 export const Getters = getterTree(State, {
-  getUser (state): User {
+  user (state): User {
     return UserTransformer.toModel(state.user)
+  },
+  isUserConnected (state): boolean {
+    return state.isUserConnected
   },
   isLoading (state): boolean {
     return state.loadingStatus === 'loading'
