@@ -9,7 +9,8 @@ export const Actions = actionTree({ state: State, getters: Getters, mutations: M
     commit('setLoadingStatus', 'loading')
     const user = await this.$authService.fetchUser(userId)
 
-    console.log('holi', user)
+    commit('storeUser', user)
+
     commit('setLoadingStatus', 'successful')
   },
 })
