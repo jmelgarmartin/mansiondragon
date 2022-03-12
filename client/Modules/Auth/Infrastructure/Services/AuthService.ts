@@ -11,7 +11,7 @@ export class AuthService implements AuthServiceInterface {
     const endpoint = `auth/user/${userId}`
     const response = await this.lamansionApi.get<WrapperApiResponse<FetchUserApiResponse>>(endpoint)
 
-    return response.data.data.map(AuthService.toUser)[0]
+    return AuthService.fetchUserFromResponse(response.data.data)
   }
 
   private static toUser (requestedUser: FetchUserApiResponse): User {
@@ -26,5 +26,13 @@ export class AuthService implements AuthServiceInterface {
     } = requestedUser
 
     return User.make({ id, name: username, master, admin, player })
+  }
+
+  private static fetchUserFromResponse (response: FetchUserApiResponse[]): User {
+    if (response.length === 0) {
+      return User.make({ id: '', name: '', master: false, admin: false, player: false })
+    }
+
+    return response.map(AuthService.toUser)[0]
   }
 }
