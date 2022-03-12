@@ -3,6 +3,7 @@ import { LoadingStatus } from '~/Modules/Auth/Domain/ValueObjects/LoadingStatus'
 
 export const State = () => ({
   user: {} as User,
+  isUserConnected: false as boolean,
   loadingStatus: null as LoadingStatus,
 })
 
