@@ -7,14 +7,14 @@ import { FetchUserApiResponse } from '~/Modules/Auth/Infrastructure/DTOs/FetchUs
 export class AuthService implements AuthServiceInterface {
   public constructor (private lamansionApi: AxiosInstance) {}
 
-  public async fetchUser (userId: UserId): Promise<User|undefined> {
+  public async fetchUser (userId: UserId): Promise<User> {
     const endpoint = `auth/user/${userId}`
     const response = await this.lamansionApi.get<WrapperApiResponse<FetchUserApiResponse>>(endpoint)
 
-    return response.data.data.map(this.toUser)[0]
+    return response.data.data.map(AuthService.toUser)[0]
   }
 
-  private toUser (requestedUser: FetchUserApiResponse): User {
+  private static toUser (requestedUser: FetchUserApiResponse): User {
     const {
       id,
       attributes: {
