@@ -18,7 +18,7 @@ export class UserRepository implements UserRepositoryInterface {
             'user.discord_id = :userId',
             { userId }
         )
-        .leftJoinAndSelect('user.roles', 'roles')
+        .leftJoinAndSelect('user.roles', 'userRoles')
         .getOne()
 
         if (userEntity === undefined) {
