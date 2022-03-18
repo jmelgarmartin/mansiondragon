@@ -1,12 +1,11 @@
 import { Controller, Get, Param, Req } from '@nestjs/common';
-import {UserFetcher} from "~/src/Modules/Auth/Application/UseCases/UserFetcher";
-import {User} from "~/src/Modules/Auth/Domain/Models/User";
-import { Response, response } from "express";
-import {GenericApiResponse, GenericModelResponse} from "~/src/Modules/Shared/Infrastructure/DTOs/GenericApiResponse";
-import {UserApiResponse} from "~/src/Modules/Auth/Infrastructure/DTOs/UserApiResponse";
+import { UserFetcher } from "~/src/Modules/Auth/Application/UseCases/UserFetcher";
+import { User } from "~/src/Modules/Auth/Domain/Models/User";
+import { GenericApiResponse } from "~/src/Modules/Shared/Infrastructure/DTOs/GenericApiResponse";
+import { UserApiResponse } from "~/src/Modules/Auth/Infrastructure/DTOs/UserApiResponse";
 
 @Controller('auth')
-export class AuthController {
+export class FetchUserController {
   constructor(private userFetcher: UserFetcher) {
   }
 
