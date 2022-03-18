@@ -1,8 +1,8 @@
-import { AxiosInstance } from 'axios'
+import { AxiosInstance, AxiosResponse } from 'axios'
 import { AuthServiceInterface } from '~/Modules/Auth/Domain/Service/AuthServiceInterface'
 import { User, Id as UserId } from '~/Modules/Auth/Domain/Models/User'
 import { WrapperApiResponse } from '~/Modules/Shared/Infrastructure/DTOs/WrapperApiResponse'
-import { FetchUserApiResponse } from '~/Modules/Auth/Infrastructure/DTOs/FetchUserApiResponse'
+import { CreateUserApiRequest, FetchUserApiResponse } from '~/Modules/Auth/Infrastructure/DTOs/FetchUserApiResponse'
 
 export class AuthService implements AuthServiceInterface {
   public constructor (private lamansionApi: AxiosInstance) {}
@@ -16,13 +16,20 @@ export class AuthService implements AuthServiceInterface {
 
   public async registerUser (userId: UserId, userName: string): Promise<User> {
     const endpoint = 'auth/user'
-    const response = await this.lamansionApi.post<WrapperApiResponse<FetchUserApiResponse>>(endpoint, {
-      type: 'user',
-      attributes: {
-        name: userName,
-        discord_id: userId,
+    const data: CreateUserApiRequest = {
+      data: {
+        type: 'user',
+        attributes: {
+          name: userName,
+          discord_id: userId,
+        },
       },
-    })
+    }
+
+    const response = await this.lamansionApi.post<
+      CreateUserApiRequest,
+      AxiosResponse<WrapperApiResponse<FetchUserApiResponse>>
+    >(endpoint, data)
 
     return AuthService.fetchUserFromResponse(response.data.data)
   }

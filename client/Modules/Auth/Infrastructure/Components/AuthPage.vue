@@ -25,20 +25,22 @@ export default Vue.extend({
   },
   computed: {
     user () {
-      return this.$accessor.auth.user
+      return this.$accessor.user.user
     },
     isUserConnected () {
-      return this.$accessor.auth.isUserConnected
+      return this.$accessor.user.isUserConnected
     },
   },
   async created () {
     this.loading = true
     await this.$auth.fetchUser()
-    this.$accessor.auth.fetchUser(this.$auth.user.id)
+    await this.$accessor.user.fetchUser(this.$auth.user.id)
     if (!this.isUserConnected) {
-      this.$accessor.auth.registerUser(this.$auth.user.id, this.$auth.user.username)
+      await this.$accessor.user.registerUser({ userId: this.$auth.user.id, name: this.$auth.user.username })
     }
     this.loading = false
+
+    window.location = '/'
   },
 })
 </script>

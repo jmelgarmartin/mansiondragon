@@ -6,6 +6,16 @@ interface RoleApiRelationship {
   }
 }
 
+export interface CreateUserApiRequest {
+  data: {
+    type: 'user'
+    attributes: {
+      name: string
+      discord_id: string
+    }
+  }
+}
+
 export interface FetchUserApiResponse {
   type: 'user'
   id: string
