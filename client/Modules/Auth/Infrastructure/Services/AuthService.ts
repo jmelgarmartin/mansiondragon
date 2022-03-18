@@ -32,11 +32,23 @@ export class AuthService implements AuthServiceInterface {
       id,
       attributes: {
         username,
-        player,
-        master,
-        admin,
+      },
+      relationships: {
+        roles: {
+          data: userRoles,
+        },
       },
     } = requestedUser
+
+    let master = false
+    let admin = false
+    let player = false
+
+    if (userRoles !== null) {
+      master = userRoles.find(role => role.attributes.name === 'master') !== undefined
+      admin = userRoles.find(role => role.attributes.name === 'admin') !== undefined
+      player = userRoles.find(role => role.attributes.name === 'player') !== undefined
+    }
 
     return User.make({ id, name: username, master, admin, player })
   }

@@ -29,10 +29,27 @@ describe('client/Modules/Auth/Infrastructure/Services/AuthService.ts', () => {
             type: 'user',
             attributes: {
               username: 'a-user-name',
-              admin: true,
               image: 'a-user-image',
-              master: false,
-              player: true,
+            },
+            relationships: {
+              roles: {
+                data: [
+                  {
+                    id: 'admin-role-id',
+                    type: 'role',
+                    attributes: {
+                      name: 'admin',
+                    },
+                  },
+                  {
+                    id: 'player-role-id',
+                    type: 'role',
+                    attributes: {
+                      name: 'player',
+                    },
+                  },
+                ],
+              },
             },
           }],
         }
@@ -111,10 +128,27 @@ describe('client/Modules/Auth/Infrastructure/Services/AuthService.ts', () => {
             type: 'user',
             attributes: {
               username: 'a-user-name',
-              admin: true,
               image: 'a-user-image',
-              master: false,
-              player: true,
+            },
+            relationships: {
+              roles: {
+                data: [
+                  {
+                    id: 'admin-role-id',
+                    type: 'role',
+                    attributes: {
+                      name: 'admin',
+                    },
+                  },
+                  {
+                    id: 'player-role-id',
+                    type: 'role',
+                    attributes: {
+                      name: 'player',
+                    },
+                  },
+                ],
+              },
             },
           }],
         }
