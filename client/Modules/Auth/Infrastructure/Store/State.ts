@@ -7,4 +7,4 @@ export const State = () => ({
   loadingStatus: null as LoadingStatus,
 })
 
-export type AuthState = ReturnType<typeof State>
+export type UserState = ReturnType<typeof State>

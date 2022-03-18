@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { getAccessorType } from 'typed-vuex'
-import auth from '~/store/auth'
+import user from '~/store/user'
 
 Vue.use(Vuex)
 
@@ -29,14 +29,14 @@ declare module '@nuxt/types' {
 export const accessorType = getAccessorType({
   modules: {
     // NOTE: Añade tus módulos aquí
-    auth,
+    user,
   },
 })
 
 const mutationAccessorType = getAccessorType({
   modules: {
     // NOTE: Añade tus mutaciones aquí
-    auth: { mutations: auth.mutations },
+    user: { mutations: user.mutations },
   },
 })
 // ⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆⬆

@@ -2,7 +2,7 @@ import { ActionContext, Commit, Store } from 'vuex'
 import { AuthServiceInterface } from '~/Modules/Auth/Domain/Service/AuthServiceInterface'
 import { User } from '~/Modules/Auth/Domain/Models/User'
 import { Actions } from '~/Modules/Auth/Application/Store/Actions'
-import { AuthState } from '~/Modules/Auth/Infrastructure/Store/State'
+import { UserState } from '~/Modules/Auth/Infrastructure/Store/State'
 import { RootState } from '~/store'
 
 describe('client/Modules/Auth/Application/Store/Actions.ts', () => {
@@ -35,8 +35,8 @@ describe('client/Modules/Auth/Application/Store/Actions.ts', () => {
 
         await Actions.fetchUser.bind({
           $authService,
-        } as Store<AuthState>)(
-          { commit } as ActionContext<AuthState, RootState>,
+        } as Store<UserState>)(
+          { commit } as ActionContext<UserState, RootState>,
           'discord-user-id'
         )
       })
@@ -75,8 +75,8 @@ describe('client/Modules/Auth/Application/Store/Actions.ts', () => {
 
         await Actions.registerUser.bind({
           $authService,
-        } as Store<AuthState>)(
-          { commit } as ActionContext<AuthState, RootState>,
+        } as Store<UserState>)(
+          { commit } as ActionContext<UserState, RootState>,
           {
             userId: 'discord-user-id',
             name: 'a-user-name',
