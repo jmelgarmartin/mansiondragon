@@ -4,6 +4,7 @@ import { User as UserEntity } from "~/src/Modules/Auth/Infrastructure/Entities/U
 import { User } from "~/src/Modules/Auth/Domain/Models/User";
 import {UserTransformer} from "~/src/Modules/Auth/Infrastructure/Transformers/UserTransformer";
 import { Injectable } from "@nestjs/common";
+import { CreateUserModel } from "~/src/Modules/Auth/Domain/DTOs/CreateUserModel";
 
 @Injectable()
 export class UserRepository implements UserRepositoryInterface {
@@ -29,5 +30,15 @@ export class UserRepository implements UserRepositoryInterface {
         }
 
         return UserTransformer.toModel(userEntity);
+    }
+
+    public async createUser(user: CreateUserModel): Promise<User> {
+        const { identifiers } = await this._userRepo.insert().values(user).execute()
+
+        return User.make({
+            id: identifiers[0].id,
+            name: user.name,
+            roles: []
+        });
     }
 }
