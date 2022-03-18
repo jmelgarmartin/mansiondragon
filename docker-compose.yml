@@ -3,28 +3,33 @@ version: '3.4'
 services:
   db:
     platform: linux/x86_64
-    image: mysql:8
+    image: mysql:5.7
+    command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
-      - db_data:/var/lib/mysql
+      - myapp_mysql_data:/var/lib/mysql
     restart: always
-    container_name: lamansion-db
+    expose:
+      - "3306"
     ports:
-      - "33060:3306"
+      - "${DB_PORT}:3306"
     environment:
-      MYSQL_DATABASE: lamansiondeldragon
-      MYSQL_USER: lamansion
-      MYSQL_PASSWORD: lamansion
-      MYSQL_ROOT_PASSWORD: lamansionroot
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_ROOT_HOST: ${DB_ROOT_HOST}
     networks:
-      - default
+      - lamansion
 
   server:
+    links:
+      - db
     depends_on:
       - db
     build:
       context: ./server
       dockerfile: Dockerfile
-    container_name: lamansion-server
+    command: bash -c 'while !</dev/tcp/db/3306; do sleep 1; done; yarn docker'
     volumes:
       - ./server:/app
       - /app/node_modules
@@ -32,7 +37,7 @@ services:
       - "4000:4000"
     restart: always
     networks:
-      - default
+      - lamansion
 
   client:
     depends_on:
@@ -40,15 +45,16 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    container_name: lamansion-client
     volumes:
       - ./client:/app
       - /app/node_modules
     ports:
       - "3000:3000"
     networks:
-      - default
+      - lamansion
+
 volumes:
-  db_data:
+  myapp_mysql_data:
+
 networks:
-  default:
+  lamansion:
